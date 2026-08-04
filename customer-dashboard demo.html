@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+
+<meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<title>
+A TO Z Services - Customer Dashboard
+</title>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+
+
+
+<style>
+
+
+*{
+
+
+box-sizing:border-box;
+
+scroll-behavior:smooth;
+
+font-family:'Poppins',sans-serif;
+
+
+}
+
+
+
+
+body{
+
+
+margin:0;
+
+background:#f8fafc;
+
+color:#111827;
+
+
+}
+
+
+
+
+
+
+
+/* NAVBAR */
+
+
+.navbar{
+
+
+height:75px;
+
+background:#111827;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 40px;
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+
+}
+
+
+
+
+
+.logo{
+
+
+font-size:28px;
+
+font-weight:900;
+
+color:#facc15;
+
+
+}
+
+
+
+
+
+.nav-links{
+
+
+display:flex;
+
+gap:30px;
+
+
+}
+
+
+
+
+
+.nav-links a{
+
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
+
+
+}
+
+
+
+
+.nav-links a:hover{
+
+
+color:#facc15;
+
+
+}
+
+
+
+
+
+
+
+.menu-btn{
+
+
+display:none;
+
+background:#facc15;
+
+border:none;
+
+padding:10px 14px;
+
+border-radius:12px;
+
+font-size:20px;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+
+
+/* HERO */
+
+
+.hero{
+
+
+min-height:450px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+padding:40px 20px;
+
+background:
+
+linear-gradient(
+135deg,
+#fff7cc,
+#dbeafe
+);
+
+
+}
+
+
+
+
+
+.hero-content{
+
+
+max-width:800px;
+
+
+}
+
+
+
+
+.hero h1{
+
+
+font-size:48px;
+
+font-weight:900;
+
+margin:10px 0;
+
+color:#111827;
+
+
+}
+
+
+
+
+
+.hero h1 span{
+
+
+color:#f59e0b;
+
+
+}
+
+
+
+
+
+.hero p{
+
+
+font-size:18px;
+
+color:#475569;
+
+line-height:1.7;
+
+
+}
+
+
+
+
+
+.hero button{
+
+
+margin-top:25px;
+
+padding:15px 35px;
+
+border:none;
+
+border-radius:15px;
+
+background:#facc15;
+
+font-size:17px;
+
+font-weight:800;
+
+cursor:pointer;
+
+transition:.3s;
+
+
+}
+
+
+
+
+
+.hero button:hover{
+
+
+transform:scale(1.05);
+
+background:#f59e0b;
+
+
+}
+
+
+
+
+
+
+
+/* SECTION */
+
+
+section{
+
+
+padding:60px 20px;
+
+
+}
+
+
+
+
+
+.section-title{
+
+
+text-align:center;
+
+font-size:32px;
+
+font-weight:800;
+
+margin-bottom:35px;
+
+
+}
+
+
+
+
+
+
+
+/* SEARCH */
+
+
+.search-box{
+
+
+max-width:600px;
+
+margin:auto auto 40px;
+
+
+}
+
+
+
+
+.search-box input{
+
+
+width:100%;
+
+padding:16px 20px;
+
+border-radius:18px;
+
+border:1px solid #ddd;
+
+font-size:16px;
+
+outline:none;
+
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+.search-box input:focus{
+
+
+border-color:#facc15;
+
+
+}
+
+
+
+
+
+
+
+/* SERVICE GRID */
+
+
+.container{
+
+
+max-width:1200px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+
+}
+
+
+
+
+
+
+
+
+/* CARD */
+
+
+.card{
+
+
+background:white;
+
+padding:25px;
+
+border-radius:25px;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+transition:.3s;
+
+position:relative;
+
+overflow:hidden;
+
+
+}
+
+
+
+
+
+.card:hover{
+
+
+transform:translateY(-10px);
+
+box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+
+}
+
+
+
+
+
+.card img{
+
+
+width:90px;
+
+height:90px;
+
+object-fit:contain;
+
+border-radius:20px;
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+
+.title{
+
+
+font-size:20px;
+
+font-weight:800;
+
+margin-bottom:12px;
+
+
+}
+
+
+
+
+
+.features{
+
+
+background:#f8fafc;
+
+padding:15px;
+
+border-radius:15px;
+
+text-align:left;
+
+font-size:14px;
+
+line-height:1.7;
+
+
+}
+
+
+
+
+
+.card button{
+
+
+width:100%;
+
+margin-top:18px;
+
+padding:13px;
+
+border:none;
+
+border-radius:15px;
+
+background:#facc15;
+
+font-weight:800;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+.card button:hover{
+
+
+background:#f59e0b;
+
+
+}
+
+
+
+
+
+
+
+
+/* POPULAR */
+
+
+.card.popular{
+
+
+border:3px solid #f59e0b;
+
+
+}
+
+
+
+
+.card.popular::before{
+
+
+content:"🔥 MOST POPULAR";
+
+display:block;
+
+background:linear-gradient(90deg,#f97316,#facc15);
+
+color:white;
+
+padding:8px;
+
+margin:-25px -25px 20px;
+
+font-size:13px;
+
+font-weight:900;
+
+
+}
+
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:1000px){
+
+
+.container{
+
+
+grid-template-columns:repeat(2,1fr);
+
+
+}
+
+
+}
+
+
+
+
+/* MOBILE 3 SERVICE BOX IN ONE ROW */
+
+@media(max-width:700px){
+
+
+.container{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:8px;
+
+padding:0 8px;
+
+}
+
+
+
+
+.card{
+
+padding:8px;
+
+border-radius:14px;
+
+}
+
+
+
+
+.card img{
+
+width:45px;
+
+height:45px;
+
+margin-bottom:5px;
+
+}
+
+
+
+
+.title{
+
+font-size:11px;
+
+font-weight:800;
+
+margin-bottom:6px;
+
+}
+
+
+
+
+.features{
+
+font-size:9px;
+
+padding:6px;
+
+line-height:1.4;
+
+border-radius:8px;
+
+}
+
+
+
+
+
+.card button{
+
+padding:7px 3px;
+
+font-size:9px;
+
+border-radius:8px;
+
+margin-top:8px;
+
+}
+
+
+
+
+.card.popular::before{
+
+font-size:8px;
+
+padding:4px;
+
+margin:-8px -8px 8px;
+
+}
+
+
+
+
+.section-title{
+
+font-size:20px;
+
+}
+
+
+
+
+.search-box input{
+
+padding:12px;
+
+font-size:13px;
+
+}
+/* ================= MOBILE NAVBAR + 3 CARD GRID ================= */
+
+@media(max-width:700px){
+
+
+.navbar{
+
+height:55px;
+
+padding:0 12px;
+
+}
+
+
+.logo{
+
+font-size:15px;
+
+}
+
+
+
+.menu-btn{
+
+display:block;
+
+font-size:16px;
+
+padding:7px 10px;
+
+}
+
+
+
+
+
+.nav-links{
+
+position:absolute;
+
+top:55px;
+
+left:0;
+
+width:100%;
+
+background:#111827;
+
+display:none;
+
+flex-direction:column;
+
+gap:0;
+
+padding:10px 0;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+
+
+.nav-links.show{
+
+display:flex;
+
+}
+
+
+
+.nav-links a{
+
+width:100%;
+
+text-align:center;
+
+padding:10px;
+
+font-size:13px;
+
+}
+
+
+
+
+
+/* 3 SERVICES IN ONE ROW */
+
+
+.container{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:8px;
+
+padding:0 8px;
+
+}
+
+
+
+.card{
+
+padding:8px;
+
+border-radius:14px;
+
+}
+
+
+
+.card img{
+
+width:45px;
+
+height:45px;
+
+margin-bottom:5px;
+
+}
+
+
+
+.title{
+
+font-size:10px;
+
+margin-bottom:5px;
+
+}
+
+
+
+.features{
+
+font-size:8px;
+
+padding:6px;
+
+line-height:1.3;
+
+}
+
+
+
+.card button{
+
+font-size:9px;
+
+padding:7px 2px;
+
+margin-top:8px;
+
+border-radius:8px;
+
+}
+
+
+
+
+.card.popular::before{
+
+font-size:7px;
+
+padding:4px;
+
+margin:-8px -8px 8px;
+
+}
+
+
+
+}
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+
+
+<!-- NAVBAR -->
+
+
+<div class="navbar">
+
+
+
+<div class="logo">
+
+A TO Z Services
+
+</div>
+
+
+
+
+
+<button class="menu-btn" onclick="toggleMenu()">
+
+☰
+
+</button>
+
+
+
+
+
+<div class="nav-links" id="navLinks">
+
+
+<a href="#home">
+
+Home
+
+</a>
+
+
+
+<a href="#services">
+
+Services
+
+</a>
+
+
+
+
+<a href="#about">
+
+About
+
+</a>
+
+
+
+<a href="#contact">
+
+Contact
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- HERO -->
+
+
+<section class="hero" id="home">
+
+
+<div class="hero-content">
+
+
+<h1>
+
+Your Trusted 
+<span>
+Service
+</span>
+Partner
+
+</h1>
+
+
+
+<p>
+
+Book electricians, mechanics, drivers,
+home services and many more at your doorstep.
+
+</p>
+
+
+
+<button onclick="scrollToServices()">
+
+Explore Services
+
+</button>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- SERVICES START -->
+
+
+<section id="services">
+
+
+<h2 class="section-title">
+
+Our Premium Services
+
+</h2>
+
+
+
+<div class="search-box">
+
+
+<input 
+id="serviceSearch"
+placeholder="🔍 Search Services..."
+onkeyup="searchServices()">
+
+
+
+</div>
+
+
+
+<div id="serviceContainer" class="container">
+
+
+</div>
+
+
+</section>
+<!-- ==========================
+     BOOKING POPUP STYLE
+========================== -->
+
+
+<style>
+
+
+.booking-overlay{
+
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.65);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+z-index:5000;
+
+
+}
+
+
+
+
+
+.booking-popup{
+
+
+width:420px;
+
+max-width:90%;
+
+background:white;
+
+padding:35px;
+
+border-radius:30px;
+
+text-align:center;
+
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+
+animation:popup .4s;
+
+
+}
+
+
+
+
+
+@keyframes popup{
+
+
+from{
+
+transform:scale(.7);
+
+opacity:0;
+
+}
+
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+
+.booking-icon{
+
+
+width:100px;
+
+height:100px;
+
+border-radius:50%;
+
+background:#fff7ed;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:55px;
+
+margin:auto;
+
+
+}
+
+
+
+
+
+.booking-popup h2{
+
+
+margin:20px 0;
+
+font-size:25px;
+
+
+}
+
+
+
+
+
+.booking-popup p{
+
+
+color:#64748b;
+
+line-height:1.7;
+
+
+}
+
+
+
+
+
+.popup-btn{
+
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:800;
+
+font-size:16px;
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+.location-btn{
+
+
+background:#facc15;
+
+
+}
+
+
+
+
+.home-btn{
+
+
+background:#111827;
+
+color:white;
+
+
+}
+#contact a{
+
+color:#111827;
+
+font-weight:700;
+
+text-decoration:none;
+
+}
+
+
+#contact a:hover{
+
+color:#f59e0b;
+
+}
+
+
+</style>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+// ============================
+// DEFAULT SERVICES
+// ============================
+
+
+let defaultServices=[
+
+
+{
+title:"Electrician",
+img:"e.jpeg",
+features:"✔ Wiring ⚡<br>✔ Repair 🔌<br>✔ Installation 🧰",
+popular:false
+},
+
+
+{
+title:"Plumber",
+img:"p.jpeg",
+features:"✔ Pipe Fix 🚰<br>✔ Leakage 🔧<br>✔ Bathroom 🚿",
+popular:false
+},
+
+
+{
+title:"House Shifting",
+img:"hs.jpeg",
+features:"✔ Packing 📦<br>✔ Moving 🚛<br>✔ Safe 🛡",
+popular:false
+},
+
+
+{
+title:"Acting Driver",
+img:"ac.jpeg",
+features:"✔ Verified 👨‍✈️<br>✔ Trips 🚗<br>✔ Safe 🛣",
+popular:false
+},
+
+
+{
+title:"Rental Vehicle",
+img:"rc.png",
+features:"✔ Bike/Car 🏍🚗<br>✔ Hourly ⏱<br>✔ Budget 💸",
+popular:false
+},
+
+
+{
+title:"Vehicle With Driver",
+img:"cwd.jpeg",
+features:"✔ Trips 🛣<br>✔ Comfort 🪑<br>✔ 24/7 🔥",
+popular:false
+},
+
+
+{
+title:"Two Wheeler Mechanic",
+img:"bwm.jpeg",
+features:"✔ Repair 🏍<br>✔ Oil 🛢<br>✔ Brake 🛑",
+popular:false
+},
+
+
+{
+title:"Four Wheeler Mechanic",
+img:"cwm.jpeg",
+features:"✔ Car 🚗<br>✔ Battery 🔋<br>✔ Engine 🔧",
+popular:false
+},
+
+
+{
+title:"SIM Service",
+img:"s.png",
+features:"✔ Activation 📱<br>✔ Replace 🔄<br>✔ Fast ⚡",
+popular:false
+},
+
+
+{
+title:"Car & Bike Wash",
+img:"cw.png",
+features:"✔ Wash 🚿<br>✔ Shine ✨<br>✔ Doorstep 🏠",
+popular:false
+},
+
+
+{
+title:"FASTag Service",
+img:"f.png",
+features:"✔ Apply 💳<br>✔ Recharge 🔄<br>✔ Toll 🛣",
+popular:false
+},
+
+
+{
+title:"Home Interior",
+img:"h.png",
+features:"✔ Design 🏠<br>✔ Cupboard 🪵<br>✔ Modern 🎨",
+popular:false
+},
+
+
+{
+title:"Mobile Service",
+img:"m.png",
+features:"✔ Repair 📱<br>✔ Accessories 🎧<br>✔ Buy/Sell 💰",
+popular:false
+}
+
+
+];
+
+
+
+
+
+
+
+
+
+// ============================
+// LOAD SERVICES
+// ============================
+
+
+function loadServices(){
+
+
+
+let adminServices=
+
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+
+
+
+
+let allServices=[...defaultServices];
+
+
+
+
+
+adminServices.forEach(service=>{
+
+
+let found=allServices.find(
+x=>x.title===service.title
+);
+
+
+
+
+
+if(found){
+
+
+found.popular=service.popular;
+
+
+}
+
+else{
+
+
+allServices.push(service);
+
+
+}
+
+
+});
+
+
+
+
+
+
+let box=
+document.getElementById(
+"serviceContainer"
+);
+
+
+
+
+box.innerHTML="";
+
+
+
+
+
+
+
+allServices.forEach(service=>{
+
+
+let style=
+service.popular
+?
+"card popular"
+:
+"card";
+
+
+
+
+
+box.innerHTML+=`
+
+
+
+<div class="${style}">
+
+
+<img src="${service.img}">
+
+
+
+<div class="title">
+
+${service.title}
+
+</div>
+
+
+
+
+<div class="features">
+
+${service.features}
+
+</div>
+
+
+
+
+
+<button onclick="bookService('${service.title}')">
+
+Book Now
+
+</button>
+
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ============================
+// BOOK SERVICE POPUP
+// ============================
+
+
+function bookService(service){
+
+
+
+localStorage.setItem(
+"selectedService",
+service
+);
+
+
+
+
+
+let div=document.createElement("div");
+
+
+
+div.className="booking-overlay";
+
+
+
+div.innerHTML=`
+
+
+
+<div class="booking-popup">
+
+
+<div class="booking-icon">
+
+📍
+
+</div>
+
+
+
+<h2>
+
+Check Service Availability
+
+</h2>
+
+
+
+
+<p>
+
+Before booking <b>${service}</b>,
+please confirm our service availability
+in your area.
+
+</p>
+
+
+
+
+
+<button class="popup-btn location-btn"
+onclick="goLocation()">
+
+📍 Fix My Location
+
+</button>
+
+
+
+
+
+<button class="popup-btn home-btn"
+onclick="closeBookingPopup()">
+
+🏠 Cancel
+
+</button>
+
+
+
+
+</div>
+
+
+
+`;
+
+
+
+
+
+
+document.body.appendChild(div);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function closeBookingPopup(){
+
+
+document.querySelector(
+".booking-overlay"
+).remove();
+
+
+}
+
+
+
+
+
+
+
+
+
+function goLocation(){
+
+
+window.location.href="location.html";
+
+
+}
+
+
+
+
+
+
+
+
+
+// ============================
+// SEARCH
+// ============================
+
+
+function searchServices(){
+
+
+
+let value=
+document.getElementById(
+"serviceSearch"
+)
+.value
+.toLowerCase();
+
+
+
+
+
+document.querySelectorAll(
+"#serviceContainer .card"
+)
+.forEach(card=>{
+
+
+
+if(
+card.innerText
+.toLowerCase()
+.includes(value)
+){
+
+
+card.style.display="block";
+
+
+}
+
+else{
+
+
+card.style.display="none";
+
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+// ============================
+// NAVIGATION
+// ============================
+
+
+function toggleMenu(){
+
+
+
+document
+.getElementById("navLinks")
+.classList.toggle("show");
+
+
+
+}
+
+
+
+
+function scrollToServices(){
+
+
+document
+.getElementById("services")
+.scrollIntoView();
+
+
+}
+
+
+
+
+
+
+// LOAD
+
+
+loadServices();
+
+
+
+</script>
+<!-- ==========================
+     ABOUT SECTION
+========================== -->
+
+
+<section id="about">
+
+
+<h2 class="section-title">
+
+Why Choose A TO Z Services?
+
+</h2>
+
+
+
+<div class="container">
+
+
+
+<div class="card">
+
+<h3>
+
+⚡ Fast Service
+
+</h3>
+
+<p>
+
+Quick doorstep service with verified partners.
+
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+
+👨‍🔧 Trusted Partners
+
+</h3>
+
+<p>
+
+Professional service providers for your needs.
+
+</p>
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+<h3>
+
+📍 Local Support
+
+</h3>
+
+<p>
+
+Services available near your location.
+
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ==========================
+     CONTACT SECTION
+========================== -->
+
+
+<section id="contact">
+
+
+<h2 class="section-title">
+
+Contact Us
+
+</h2>
+
+
+
+
+<div class="card" style="max-width:600px;margin:auto;">
+
+
+<p>
+
+📞 Phone:
+
+<a href="tel:+918124906869">
+
++91 8124906869
+
+</a>
+
+</p>
+
+
+
+<p>
+
+📧 Email:
+
+<a href="mailto:serviceatoz72@gmail.com">
+
+serviceatoz72@gmail.com
+
+</a>
+
+</p>
+
+
+
+<p>
+
+🏠 Doorstep Services Available
+
+</p>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ==========================
+     FOOTER
+========================== -->
+
+
+<footer style="
+
+background:#111827;
+
+color:white;
+
+padding:25px;
+
+text-align:center;
+
+">
+
+
+<h3>
+
+🛠 A TO Z Services
+
+</h3>
+
+
+<p>
+
+Your trusted doorstep service partner.
+
+</p>
+
+
+
+<p>
+
+© 2026 A TO Z Services. All Rights Reserved.
+
+</p>
+
+
+
+</footer>
+
+
+
+
+
+
+
+<!-- ==========================
+     FIREBASE BOOKING SYSTEM
+========================== -->
+
+
+<script type="module">
+
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+
+
+import { getDatabase, ref, push, set }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+
+
+
+
+
+
+const firebaseConfig={
+
+
+
+
+authDomain:"notificatin.firebaseapp.com",
+
+databaseURL:"https://notificatin-default-rtdb.firebaseio.com",
+
+projectId:"notificatin",
+
+storageBucket:"notificatin.firebasestorage.app",
+
+messagingSenderId:"254649810281",
+
+appId:"1:254649810281:web:bc659be4ac62712e57d1f8"
+
+
+};
+
+
+
+
+
+
+const app=initializeApp(firebaseConfig);
+
+
+const db=getDatabase(app);
+
+
+
+
+
+
+
+// SAVE SELECTED SERVICE
+
+
+window.addEventListener("load",()=>{
+
+
+let service=
+localStorage.getItem("selectedService");
+
+
+
+if(service){
+
+
+console.log(
+"Selected Service:",
+service
+);
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+// CUSTOMER BOOKING FUNCTION
+
+
+window.createBooking=function(data){
+
+
+
+let bookingRef=
+push(
+ref(db,"bookings")
+);
+
+
+
+
+
+set(
+bookingRef,
+{
+
+...data,
+
+
+service:
+localStorage.getItem(
+"selectedService"
+)
+||"Service",
+
+
+
+status:"NEW",
+
+
+createdAt:
+new Date()
+.toISOString()
+
+
+
+}
+
+)
+
+.then(()=>{
+
+
+showMessage(
+"✅ Booking Submitted Successfully"
+);
+
+
+
+})
+
+.catch(()=>{
+
+
+showMessage(
+"❌ Booking Failed"
+);
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// MESSAGE POPUP
+
+
+function showMessage(msg){
+
+
+
+let box=document.createElement("div");
+
+
+
+box.className="popup";
+
+box.innerHTML=msg;
+
+
+
+document.body.appendChild(box);
+
+
+
+setTimeout(()=>{
+
+
+box.remove();
+
+
+},2500);
+
+
+
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+// CLOSE MOBILE MENU AFTER CLICK
+
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(link=>{
+
+
+link.onclick=function(){
+
+
+document
+.getElementById("navLinks")
+.classList.remove("show");
+
+
+}
+
+
+});
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+
+</html>

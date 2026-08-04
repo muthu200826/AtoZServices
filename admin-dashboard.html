@@ -1,0 +1,1467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>A TO Z Services Admin Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:'Segoe UI',Arial,sans-serif;
+margin:0;
+padding:0;
+}
+
+body{
+background:#f1f5f9;
+}
+
+.header{
+height:70px;
+background:linear-gradient(135deg,#facc15,#f59e0b);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+font-weight:900;
+color:#111;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.container{
+display:flex;
+}
+
+.sidebar{
+width:250px;
+background:#111827;
+height:100vh;
+position:fixed;
+padding:20px;
+overflow:auto;
+}
+
+.sidebar h2{
+color:white;
+text-align:center;
+margin-bottom:20px;
+}
+
+.sidebar button{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+cursor:pointer;
+font-weight:700;
+}
+
+.sidebar button.active{
+background:#facc15;
+color:#000;
+}
+
+.main{
+margin-left:250px;
+padding:20px;
+width:100%;
+}
+
+.section{
+display:none;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:18px;
+margin-bottom:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+textarea{
+height:90px;
+resize:none;
+}
+
+.btn{
+padding:10px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:700;
+margin:3px;
+}
+
+.add{
+background:#facc15;
+}
+
+.save{
+background:#22c55e;
+color:white;
+}
+
+.edit{
+background:#3b82f6;
+color:white;
+}
+
+.del{
+background:#ef4444;
+color:white;
+}
+
+.service-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+}
+
+.service-card{
+
+background:white;
+
+padding:8px;
+
+border-radius:12px;
+
+text-align:center;
+
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+
+.service-card img{
+
+width:45px;
+
+height:45px;
+
+object-fit:cover;
+
+border-radius:10px;
+
+}
+
+
+.service-card h3{
+
+font-size:13px;
+
+margin:5px 0;
+
+}
+
+
+.service-card p{
+
+font-size:10px;
+
+line-height:1.3;
+
+margin:3px 0;
+
+}
+
+
+.service-card .btn{
+
+font-size:10px;
+
+padding:5px 8px;
+
+margin:2px;
+
+border-radius:8px;
+
+}
+
+.service-card h3{
+margin-top:8px;
+font-size:14px;
+}
+
+.popup{
+position:fixed;
+top:20px;
+right:20px;
+background:#22c55e;
+color:white;
+padding:12px 18px;
+border-radius:10px;
+z-index:9999;
+}
+
+
+
+/* MOBILE NAVBAR */
+
+.menu-btn{
+
+display:none;
+
+position:fixed;
+
+top:12px;
+
+left:12px;
+
+z-index:9999;
+
+background:#111827;
+
+color:white;
+
+border:none;
+
+font-size:22px;
+
+padding:8px 13px;
+
+border-radius:12px;
+
+}
+
+
+/* MOBILE DESIGN */
+
+@media(max-width:900px){
+
+
+.header{
+
+height:65px;
+
+font-size:18px;
+
+font-weight:900;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:
+
+linear-gradient(
+135deg,
+#facc15,
+#f59e0b
+);
+
+border-radius:0 0 20px 20px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.2);
+
+padding-left:40px;
+
+}
+
+
+
+.menu-btn{
+
+display:block;
+
+}
+
+
+
+.sidebar{
+
+
+position:fixed;
+
+top:65px;
+
+left:-260px;
+
+width:250px;
+
+height:calc(100vh - 65px);
+
+background:#111827;
+
+transition:.3s;
+
+z-index:9998;
+
+box-shadow:
+5px 0 20px rgba(0,0,0,.3);
+
+}
+
+
+
+.sidebar.show{
+
+left:0;
+
+}
+
+
+
+.sidebar button{
+
+padding:12px;
+
+font-size:14px;
+
+border-radius:12px;
+
+}
+
+
+
+.main{
+
+margin-left:0;
+
+padding:10px;
+
+}
+
+
+
+/* SERVICE GRID */
+
+
+.service-grid{
+
+
+grid-template-columns:repeat(2,1fr);
+
+gap:8px;
+
+
+}
+
+
+
+.service-card{
+
+
+padding:7px;
+
+border-radius:12px;
+
+}
+
+
+
+.service-card img{
+
+
+width:40px;
+
+height:40px;
+
+
+}
+
+
+
+.service-card h3{
+
+
+font-size:11px;
+
+margin:5px 0;
+
+
+}
+
+
+
+.service-card p{
+
+
+display:none;
+
+
+}
+
+
+
+.service-card .btn{
+
+
+font-size:9px;
+
+padding:5px;
+
+width:100%;
+
+margin:2px 0;
+
+
+}
+
+
+
+/* ADD SERVICE BOX */
+
+
+.box{
+
+
+padding:12px;
+
+border-radius:18px;
+
+
+}
+
+
+.box h2{
+
+
+font-size:17px;
+
+
+}
+
+
+input,
+textarea,
+select{
+
+
+font-size:12px;
+
+padding:10px;
+
+
+}
+
+
+/* BOOKING SMALL */
+
+
+.booking-card{
+
+
+padding:10px;
+
+border-radius:14px;
+
+font-size:12px;
+
+
+}
+
+
+
+.booking-card h3{
+
+
+font-size:14px;
+
+
+}
+
+
+.booking-card p{
+
+
+font-size:11px;
+
+margin:5px 0;
+
+
+}
+
+
+
+.booking-card select{
+
+
+font-size:11px;
+
+padding:6px;
+
+
+}
+
+
+
+.booking-card .btn{
+
+
+font-size:10px;
+
+padding:6px;
+
+width:100%;
+
+
+}
+
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<button class="menu-btn" onclick="toggleMenu()">
+☰
+</button>
+
+
+<div class="header">
+
+ A TO Z SERVICES
+
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h2>ADMIN</h2>
+
+<button class="active" onclick="show('services',this)">
+🛠 Services
+</button>
+
+<button onclick="show('bookings',this)">
+📋 Bookings
+</button>
+
+<button onclick="show('area',this)">
+📍 Service Area
+</button>
+
+</div>
+
+<div class="main">
+
+<!-- SERVICES SECTION -->
+
+<div id="services" class="section" style="display:block">
+
+<div class="box">
+
+<h2>➕ Add New Service</h2>
+
+<input id="title" placeholder="Service Name">
+
+<textarea id="features"
+placeholder="Service Features"></textarea>
+
+<input type="file"
+id="img"
+accept="image/*">
+
+<label>
+
+<input type="checkbox"
+id="popular">
+
+🔥 Popular Service
+
+</label>
+
+<br><br>
+
+<button
+id="serviceBtn"
+class="btn add"
+onclick="addService()">
+
+Add Service
+
+</button>
+
+</div>
+
+<h2>🛠 Available Services</h2>
+
+<div id="serviceBox"
+class="service-grid"></div>
+
+</div>
+<!-- BOOKINGS SECTION -->
+
+<div id="bookings" class="section">
+
+<div class="box">
+
+<h2>📋 Customer Bookings</h2>
+
+<div id="bookingBox">
+
+Loading Bookings...
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// FIREBASE
+
+const firebaseConfig={
+
+apiKey:"YOUR_API_KEY",
+
+authDomain:"notificatin.firebaseapp.com",
+
+databaseURL:"https://notificatin-default-rtdb.firebaseio.com",
+
+projectId:"notificatin",
+
+storageBucket:"notificatin.firebasestorage.app",
+
+messagingSenderId:"254649810281",
+
+appId:"1:254649810281:web:bc659be4ac62712e57d1f8"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db=firebase.database();
+
+let imgData="";
+let editServiceIndex=-1;
+let map=null;
+let marker=null;
+
+// POPUP
+
+function popup(msg){
+
+let p=document.createElement("div");
+
+p.className="popup";
+
+p.innerHTML="✅ "+msg;
+
+document.body.appendChild(p);
+
+setTimeout(()=>{
+p.remove();
+},2000);
+
+}
+
+// IMAGE UPLOAD
+
+document.getElementById("img")
+.addEventListener("change",function(e){
+
+let file=e.target.files[0];
+
+if(file){
+
+let reader=new FileReader();
+
+reader.onload=function(){
+
+imgData=reader.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+});
+
+// ADD SERVICE
+
+function addService(){
+
+let data=
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+data.push({
+
+id:Date.now(),
+
+title:title.value,
+
+features:features.value,
+
+img:imgData || "https://via.placeholder.com/80",
+
+popular:popular.checked
+
+});
+
+localStorage.setItem(
+"services",
+JSON.stringify(data)
+);
+
+loadServices();
+
+clearService();
+
+popup("Service Added");
+
+}
+
+// LOAD SERVICES
+
+function loadServices(){
+
+let data=
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+let box=
+document.getElementById("serviceBox");
+
+box.innerHTML="";
+
+data.forEach((s,i)=>{
+
+box.innerHTML+=`
+
+<div class="service-card">
+
+<img src="${s.img}">
+
+<h3>${s.title}</h3>
+
+${s.popular ? "🔥 Popular" : ""}
+
+<p>${s.features}</p>
+
+<button
+class="btn edit"
+onclick="editService(${i})">
+
+Edit
+
+</button>
+
+<button
+class="btn del"
+onclick="deleteService(${i})">
+
+Delete
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+// EDIT SERVICE
+
+function editService(i){
+
+let data=
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+let s=data[i];
+
+editServiceIndex=i;
+
+title.value=s.title;
+
+features.value=s.features;
+
+popular.checked=s.popular;
+
+serviceBtn.innerHTML=
+"Update Service";
+
+serviceBtn.className=
+"btn save";
+
+serviceBtn.onclick=
+updateService;
+
+}
+
+// UPDATE SERVICE
+
+function updateService(){
+
+let data=
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+data[editServiceIndex]={
+
+...data[editServiceIndex],
+
+title:title.value,
+
+features:features.value,
+
+img:imgData || data[editServiceIndex].img,
+
+popular:popular.checked
+
+};
+
+localStorage.setItem(
+"services",
+JSON.stringify(data)
+);
+
+loadServices();
+
+clearService();
+
+popup("Service Updated");
+
+}
+
+// DELETE SERVICE
+
+function deleteService(i){
+
+if(confirm("Delete Service?")){
+
+let data=
+JSON.parse(
+localStorage.getItem("services")
+) || [];
+
+data.splice(i,1);
+
+localStorage.setItem(
+"services",
+JSON.stringify(data)
+);
+
+loadServices();
+
+popup("Service Deleted");
+
+}
+
+}
+
+// CLEAR FORM
+
+function clearService(){
+
+title.value="";
+
+features.value="";
+
+popular.checked=false;
+
+imgData="";
+
+serviceBtn.innerHTML=
+"Add Service";
+
+serviceBtn.className=
+"btn add";
+
+serviceBtn.onclick=
+addService;
+
+editServiceIndex=-1;
+
+}
+
+// LOAD BOOKINGS
+
+function loadBookings(){
+
+let box=
+document.getElementById("bookingBox");
+
+db.ref("bookings")
+.on("value",snap=>{
+
+box.innerHTML="";
+
+if(!snap.exists()){
+
+box.innerHTML=`
+<div class="box">
+No Bookings Found
+</div>
+`;
+
+return;
+
+}
+
+snap.forEach(child=>{
+
+let b=child.val();
+
+let id=child.key;
+
+box.innerHTML+=`
+
+<div class="booking-card">
+
+<h3>
+🛠 ${b.service || "Service"}
+</h3>
+
+<p>
+👤 ${b.name || ""}
+</p>
+
+<p>
+📞 ${b.phone || ""}
+</p>
+
+<p>
+🏠 ${b.address || ""}
+</p>
+
+<p>
+📅 ${b.datetime || ""}
+</p>
+
+<p>
+📝 ${b.issue || ""}
+</p>
+
+<select
+onchange="updateBookingStatus('${id}',this.value)">
+
+<option
+${b.status=="NEW"?"selected":""}>
+NEW
+</option>
+
+<option
+${b.status=="PENDING"?"selected":""}>
+PENDING
+</option>
+
+<option
+${b.status=="COMPLETED"?"selected":""}>
+COMPLETED
+</option>
+
+</select>
+
+<br>
+
+<button
+class="btn edit"
+onclick="assignPartner('${id}')">
+
+Assign Partner
+
+</button>
+
+<button
+class="btn del"
+onclick="deleteBooking('${id}')">
+
+Delete
+
+</button>
+
+</div>
+
+`;
+
+});
+
+});
+
+}
+
+// UPDATE STATUS
+
+function updateBookingStatus(id,status){
+
+db.ref("bookings/"+id)
+.update({
+status:status
+});
+
+popup("Status Updated");
+
+}
+
+// DELETE BOOKING
+
+function deleteBooking(id){
+
+if(confirm("Delete Booking?")){
+
+db.ref("bookings/"+id)
+.remove();
+
+popup("Booking Deleted");
+
+}
+
+}
+function toggleMenu(){
+
+document.querySelector(".sidebar")
+.classList.toggle("show");
+
+}
+
+// ASSIGN PARTNER
+
+function assignPartner(id){
+
+let name=
+prompt("Partner Name");
+
+let phone=
+prompt("Partner Phone");
+
+if(name && phone){
+
+db.ref("bookings/"+id)
+.update({
+
+partnerName:name,
+partnerPhone:phone
+
+});
+
+popup("Partner Assigned");
+
+}
+
+}
+
+</script>
+<!-- SERVICE AREA SECTION -->
+
+<div id="area" class="section">
+
+<div class="box">
+
+<h2>📍 Service Area Management</h2>
+
+<input
+id="pincode"
+placeholder="Enter PIN Code">
+
+<button
+class="btn add"
+onclick="searchPin()">
+
+Search Location
+
+</button>
+
+<div
+id="map"
+style="
+height:350px;
+border-radius:15px;
+margin-top:15px;
+">
+</div>
+
+<br>
+
+<h3>
+
+Service Radius :
+
+<span id="radiusText">
+20
+</span>
+
+KM
+
+</h3>
+
+<input
+type="range"
+id="radius"
+min="5"
+max="100"
+value="20"
+
+oninput="
+radiusText.innerHTML=this.value
+">
+
+<br><br>
+
+<button
+class="btn save"
+onclick="saveRadius()">
+
+Save Radius
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<style>
+
+/* MOBILE BOOKING CARD */
+
+@media(max-width:768px){
+
+.booking-card{
+
+padding:8px;
+margin-bottom:8px;
+border-radius:10px;
+
+}
+
+.booking-card h3{
+
+font-size:12px;
+
+}
+
+.booking-card p{
+
+font-size:10px;
+margin:2px 0;
+
+}
+
+.booking-card select{
+
+width:100%;
+height:30px;
+font-size:10px;
+
+}
+
+.booking-card .btn{
+
+width:100%;
+font-size:10px;
+padding:5px;
+margin-top:4px;
+
+}
+
+}
+
+</style>
+
+<script>
+
+// TAB SWITCH
+
+function show(id,btn){
+
+document
+.querySelectorAll(".section")
+.forEach(s=>{
+
+s.style.display="none";
+
+});
+
+document
+.querySelectorAll(".sidebar button")
+.forEach(b=>{
+
+b.classList.remove("active");
+
+});
+
+document
+.getElementById(id)
+.style.display="block";
+
+btn.classList.add("active");
+
+// BOOKINGS
+
+if(id==="bookings"){
+
+loadBookings();
+
+}
+
+// MAP
+
+if(id==="area"){
+
+setTimeout(()=>{
+
+initMap();
+
+if(map){
+
+map.invalidateSize();
+
+}
+
+},500);
+
+}
+
+}
+
+// MAP
+
+function initMap(){
+
+if(map){
+
+setTimeout(()=>{
+
+map.invalidateSize();
+
+},300);
+
+return;
+
+}
+
+map=L.map("map")
+.setView(
+[20.5937,78.9629],
+5
+);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 20
+}).addTo(map);
+
+}
+
+// PIN SEARCH
+
+function searchPin(){
+
+let pin=
+document
+.getElementById("pincode")
+.value
+.trim();
+
+if(pin===""){
+
+popup("Enter PIN Code");
+
+return;
+
+}
+
+function searchPin(){
+
+let pin=document.getElementById("pincode").value.trim();
+
+if(pin===""){
+alert("Enter PIN Code");
+return;
+}
+
+
+fetch(
+"https://photon.komoot.io/api/?q="+pin+", India"
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+if(!data.features || data.features.length===0){
+
+alert("PIN Location Not Found");
+
+return;
+
+}
+
+
+
+let place=data.features[0].geometry.coordinates;
+
+
+let lng=place[0];
+
+let lat=place[1];
+
+
+showLocation(lat,lng);
+
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+alert("Search failed. Check internet");
+
+});
+
+
+}
+
+then(res=>res.json())
+
+.then(data=>{
+
+if(!data || data.length===0){
+
+popup("Location Not Found");
+
+return;
+
+}
+
+let lat=
+parseFloat(
+data[0].lat
+);
+
+let lon=
+parseFloat(
+data[0].lon
+);
+
+map.setView(
+[lat,lon],
+13
+);
+
+if(marker){
+
+map.removeLayer(marker);
+
+}
+
+marker=
+L.marker([lat,lon])
+.addTo(map);
+
+})
+
+.catch(()=>{
+
+popup("Search Failed");
+
+});
+
+}
+
+// SAVE RADIUS
+
+function saveRadius(){
+
+let value=
+Number(
+radius.value
+);
+
+db.ref(
+"settings/serviceRadius"
+)
+
+.set(value)
+
+.then(()=>{
+
+popup(
+"Radius Saved"
+);
+
+});
+
+}
+
+// LOAD SAVED RADIUS
+
+function loadRadius(){
+
+db.ref(
+"settings/serviceRadius"
+)
+
+.once("value")
+
+.then(snap=>{
+
+if(snap.exists()){
+
+radius.value=snap.val();
+
+radiusText.innerHTML=
+snap.val();
+
+}
+
+});
+
+}
+
+// START
+
+window.onload=function(){
+
+loadServices();
+
+loadBookings();
+
+loadRadius();
+
+};
+
+</script>
+
+</body>
+</html>

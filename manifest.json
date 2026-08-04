@@ -1,0 +1,9 @@
+{
+  "name": "A TO Z Services",
+  "short_name": "ATOZ",
+  "description": "A TO Z Services Nellai",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd"
+}
